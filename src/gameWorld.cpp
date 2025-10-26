@@ -150,6 +150,10 @@ void GameWorld::setUpTiles()
 
 void GameWorld::moveLeft()
 {
+    if (state != GameState::Playing)
+    {
+        return;
+    }
     if(playerPosition.x == 0)
     {
         return;
@@ -166,7 +170,10 @@ void GameWorld::moveLeft()
 
 void GameWorld::moveRight()
 {
-    // assuming grid width is tiles[0].size()
+    if (state != GameState::Playing)
+    {
+        return;
+    }
     if(playerPosition.x == gridLength-1)
     {
         return;
@@ -183,6 +190,10 @@ void GameWorld::moveRight()
 
 void GameWorld::moveUp()
 {
+    if (state != GameState::Playing)
+    {
+        return;
+    }
     if(playerPosition.y == 0)
     {
         return;
@@ -199,7 +210,10 @@ void GameWorld::moveUp()
 
 void GameWorld::moveDown()
 {
-    // assuming grid height is tiles.size()
+    if (state != GameState::Playing)
+    {
+        return;
+    }
     if(playerPosition.y == gridLength-1)
     {
         return;
@@ -307,15 +321,14 @@ void GameWorld::checkCollisionsAndMoveEnemies()
 {
     if (checkIfReachedExit())
     {
-        setUpInitialState();
+        state = GameState::Victory; // instead of setUpInitialState()
         return;
     }
     moveEnemies();
     if (checkIfHitEnemy())
     {
-        setUpInitialState();
+        state = GameState::Defeat; // instead of setUpInitialState()
         return;
-
     }
     redrawSprites();
 }

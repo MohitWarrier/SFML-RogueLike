@@ -22,6 +22,17 @@ int main()
     }
 
     sf::Sprite sprite(texture);
+    
+    sf::Font font;
+    if (!font.openFromFile("Assets/Arial.TTF")) 
+    {
+        std::cerr <<"Font load failed" << std::endl;
+    }
+    sf::Text messageText(font);  // Must be constructed with the font reference!
+    messageText.setString("Victory!\nPress SPACE to restart");
+    messageText.setCharacterSize(48);
+    messageText.setFillColor(sf::Color::White);
+    messageText.setPosition(sf::Vector2f(100,300));
 
     while (window.isOpen())
     {
@@ -54,12 +65,19 @@ int main()
                     default:
                         break;
                 }
+                if(keyEvent->scancode == sf::Keyboard::Scan::Space) 
+                {
+                    if(gameWorld.state != GameState::Playing) {
+                        gameWorld.setUpInitialState();
+                        gameWorld.state = GameState::Playing;
+                    }
+                }
             }
 
         }
 
         window.clear();
-        
+        //draw tiles
         for (int i = 0; i < gameWorld.gridLength; i++)
         {
             for (int j = 0; j < gameWorld.gridLength; j++)
@@ -73,6 +91,18 @@ int main()
                     std :: cerr <<"Error"<< std::endl;
                 }
             }
+
+            if(gameWorld.state == GameState::Victory) 
+            {
+                messageText.setString("\t\t\t\tVictory!\n\tPress SPACE to restart");
+                window.draw(messageText);
+            } 
+            else if(gameWorld.state == GameState::Defeat)
+            {
+                messageText.setString("\t\t\t\tDefeat!\n\tPress SPACE to restart");
+                window.draw(messageText);
+            }
+
         }
 
         window.display();

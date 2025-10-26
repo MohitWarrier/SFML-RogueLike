@@ -5,13 +5,14 @@
 #ifndef GAMEWORLD_H
 #define GAMEWORLD_H
 
+
+enum class GameState { Playing, Victory, Defeat };
 class GameWorld
 {
     private:
         sf::Vector2i exitPosition;
         sf::Vector2i playerPosition;
         std::vector <sf::Vector2i> enemyPositions;
-        void setUpInitialState();
         void setUpEnemyPositions();
         void setUpTiles();
         void redrawSprites();
@@ -23,9 +24,11 @@ class GameWorld
         void checkCollisionsAndMoveEnemies();
 
     public:
+        GameState state = GameState::Playing;
         std::vector <std::vector<GameTile *>> tiles;
         int gridLength;
         GameWorld();
+        void setUpInitialState();
         void moveLeft();
         void moveRight();
         void moveUp();
