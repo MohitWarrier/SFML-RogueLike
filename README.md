@@ -6,12 +6,12 @@ Dodge the enemies and make it to the exit!
 ## 🎮 Gameplay Demo
 
 **Defeat & Retry**
-![Defeat GIF](assets/defeat.gif)
+![Defeat GIF](Assets/defeat.gif)
 
 ---
 
 **Victory**
-![Victory GIF](assets/victory.gif)
+![Victory GIF](Assets/victory.gif)
 
 ## Features
 
